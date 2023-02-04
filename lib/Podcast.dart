@@ -3,6 +3,7 @@ class Podcast {
   String date;
   String name;
   String duration;
+  int t;
 
-  Podcast(this.image, this.date, this.name, this.duration);
+  Podcast(this.image, this.date, this.name, this.duration, {this.t});
 }
