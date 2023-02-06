@@ -3,15 +3,21 @@ import 'package:first_app/Podcast.dart';
 import 'package:first_app/main.dart';
 import 'package:flutter/material.dart';
 import 'Utils.dart';
+import 'podcastListView.dart';
 
-import 'HomeScreen.dart';
+import 'homeScreen.dart';
 
-class PodcastPlayerScreen extends StatelessWidget {
+class PodcastPlayerScreen2 extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    PodcastPlayerScreen();
+  }
+}
+
+class PodcastPlayerScreen extends State<StatefulWidget> {
   List<Podcast> favoritePodcastEpisodes;
 
   static String routeName = '/podcast-player';
-
-  String _name, _duration;
 
   @override
   Widget build(BuildContext context) {

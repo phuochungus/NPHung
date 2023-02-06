@@ -1,5 +1,5 @@
-import 'package:first_app/HomeScreen.dart';
-import 'package:first_app/PodcastPlayerScreen.dart';
+import 'package:first_app/homeScreen.dart';
+import 'package:first_app/podcastPlayerScreen.dart';
 import 'package:flutter/material.dart';
 
 const primaryColor = Color(0xff192038);
@@ -13,20 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          textTheme: TextTheme(
-        headlineSmall: TextStyle(
-            fontSize: 14,
-            color: Colors.white,
-            fontFamily: 'SFProDisplay',
-            fontWeight: FontWeight.w600),
-      )),
       title: 'Demo',
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
-        PodcastPlayerScreen.routeName: (context) => PodcastPlayerScreen(),
+        PodcastPlayerScreen.routeName: (context) => PodcastPlayerScreen2(),
       },
     );
   }

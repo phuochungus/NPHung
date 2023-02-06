@@ -1,10 +1,12 @@
-import 'package:first_app/PodcastPlayerScreen.dart';
 import 'package:first_app/main.dart';
+import 'package:first_app/podcastListView.dart';
 import 'package:flutter/material.dart';
-import 'Podcast.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'Utils.dart';
+
+import 'podcast.dart';
+import 'PodcastPlayerScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = '/home-screen';
@@ -21,8 +23,9 @@ class HomeScreen extends StatelessWidget {
                 fontFamily: 'SFProDisplay',
                 fontWeight: FontWeight.w700)),
         actions: [
-          Container(
-            width: 30,
+          InkWell(
+            onTap: () {},
+            borderRadius: BorderRadius.circular(50),
             child: Image.asset('assets/images/bell.png'),
           )
         ],
@@ -56,29 +59,33 @@ class HomeScreen extends StatelessWidget {
                           )),
                     ),
                     Container(
-                        margin: EdgeInsets.only(
-                          top: Utils.getResponsiveHeight(8),
-                          bottom: Utils.getResponsiveHeight(16),
+                      margin: EdgeInsets.only(
+                        top: Utils.getResponsiveHeight(8),
+                        bottom: Utils.getResponsiveHeight(16),
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: TextField(
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          cursorColor: Colors.white,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            prefixIcon: Image.asset('assets/images/search.png'),
+                            hintStyle: TextStyle(
+                              color: Color(0xff8F9BB3),
+                            ),
+                            hintText: 'Search',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none),
+                            fillColor: Color(0xff222B45),
+                            filled: true,
+                          ),
                         ),
-                        child: Align(
-                            alignment: Alignment.center,
-                            child: TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                prefixIcon:
-                                    Image.asset('assets/images/search.png'),
-                                hintStyle: TextStyle(
-                                  color: Color(0xff8F9BB3),
-                                ),
-                                hintText: 'Search',
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide.none),
-                                fillColor: Color(0xff222B45),
-                                filled: true,
-                              ),
-                            ))),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                         bottom: Utils.getResponsiveHeight(16),
@@ -94,17 +101,33 @@ class HomeScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w600)),
                             Container(
                               margin: EdgeInsets.only(
-                                left: Utils.getResponsiveWidth(7),
+                                left: 20,
                               ),
-                              child: Image.asset('assets/images/downArrow.png'),
-                            )
+                              child: InkWell(
+                                onTap: () {},
+                                child: Align(
+                                  heightFactor: 2.5,
+                                  widthFactor: 2.5,
+                                  alignment: Alignment.center,
+                                  child: Image.asset(
+                                      'assets/images/downArrow.png'),
+                                ),
+                              ),
+                            ),
                           ]),
-                          Text(
-                            'View all',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'SF Pro Text',
-                                fontWeight: FontWeight.w400),
+                          InkWell(
+                            onTap: () {},
+                            child: Align(
+                              alignment: Alignment.center,
+                              heightFactor: 1.5,
+                              child: Text(
+                                'View all',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'SF Pro Text',
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -235,114 +258,6 @@ class CurvedNavigationBarr extends StatelessWidget {
           ),
         ],
         onTap: (index) => {},
-      ),
-    );
-  }
-}
-
-class PodcastListView extends StatelessWidget {
-  List<Podcast> podcasts = <Podcast>[
-    Podcast("assets/images/Rectangle1.png", "DEC 30, 2020",
-        "The Year in MoGraph - 2020", "3 hr 31 min"),
-    Podcast('assets/images/Rectangle2.png', 'DEC 2, 2020',
-        'Episode 197: The World of Lettering', '42 min'),
-    Podcast('assets/images/Rectangle3.png', 'DEC 18, 2020',
-        'How to Create YouTube Video Ads That Convert', '52 min'),
-    Podcast('assets/images/Rectangle4.png', 'DEC 15, 2020',
-        'Airbnb\'s Brian Chesky: Designing for trust', '46 min'),
-    Podcast('assets/images/Rectangle5.png', 'DEC 09, 2020',
-        'Sounds Worth Saving', '46 min'),
-  ];
-
-  void navigateToPodcastPlayer(BuildContext context, Podcast selectedPodcast) {
-    Navigator.of(context).pushNamed(
-      PodcastPlayerScreen.routeName,
-      arguments: {'selectedPodcast': selectedPodcast},
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: podcasts.length,
-      separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: (context, index) => InkWell(
-        onTap: () =>
-            navigateToPodcastPlayer(context, podcasts.elementAt(index)),
-        child: Container(
-          margin: EdgeInsets.only(top: Utils.getResponsiveHeight(16)),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                child: Image.asset(
-                  podcasts.elementAt(index).image,
-                  height: Utils.getResponsiveHeight(48),
-                  width: Utils.getResponsiveWidth(48),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              SizedBox(width: Utils.getResponsiveWidth(8)),
-              Expanded(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            child: Text(
-                              podcasts.elementAt(index).date,
-                              style: TextStyle(
-                                  color: Color(0xccffffff),
-                                  fontFamily: 'SF Pro Text',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14),
-                            ),
-                          ),
-                          SizedBox(width: 30),
-                          Container(
-                            margin: EdgeInsets.only(left: 30),
-                            child: Text(
-                              podcasts.elementAt(index).duration,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        podcasts.elementAt(index).name,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w600),
-                        softWrap: false,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                child: ImageIcon(
-                  AssetImage(
-                    'assets/images/three_dot.png',
-                  ),
-                  color: Colors.white,
-                ),
-              )
-            ],
-          ),
-        ),
       ),
     );
   }
