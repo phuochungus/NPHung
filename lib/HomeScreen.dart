@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.only(left: 20, right: 20),
                 child: Column(
                   children: [
                     Container(
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                           )),
                     ),
                     Container(
-                        margin: EdgeInsets.only(top: 10),
+                        margin: EdgeInsets.only(top: 10, bottom: 20),
                         child: Align(
                             alignment: Alignment.center,
                             child: TextField(
@@ -69,28 +69,31 @@ class HomeScreen extends StatelessWidget {
                                 filled: true,
                               ),
                             ))),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(children: [
-                          Text('Catagories',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'SFProDisplay',
-                                  fontWeight: FontWeight.w600)),
-                          Container(
-                            margin: EdgeInsets.only(left: 20),
-                            child: Image.asset('assets/images/downArrow.png'),
-                          )
-                        ]),
-                        Text(
-                          'View all',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'SF Pro Text',
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(children: [
+                            Text('Catagories',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'SFProDisplay',
+                                    fontWeight: FontWeight.w600)),
+                            Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: Image.asset('assets/images/downArrow.png'),
+                            )
+                          ]),
+                          Text(
+                            'View all',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'SF Pro Text',
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -215,7 +218,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
                 child: Column(
                   children: [
                     Container(
@@ -245,7 +248,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: PodcastListView(),
             ),
           ),

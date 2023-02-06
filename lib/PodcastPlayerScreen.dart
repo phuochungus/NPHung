@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:first_app/Podcast.dart';
 import 'package:first_app/main.dart';
@@ -37,46 +39,61 @@ class PodcastPlayerScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/Rectangle1HD.png',
-                    width: 200,
-                    height: 200,
+                Container(
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        bottom: -50,
+                        child: Image.asset('assets/images/Rectangle1mini.png'),
+                      ),
+                      Image.asset(
+                        'assets/images/Rectangle1HD.png',
+                        height: 250,
+                        width: 250,
+                      ),
+                    ],
+                    clipBehavior: Clip.none,
                   ),
                 ),
-                Text(
-                  currentPodcast.name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'SF Pro Display',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30, top: 30),
+                  child: Text(
+                    currentPodcast.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'SF Pro Display',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 30),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   child: MediaControl(),
                 ),
-                ProgressBar(
-                  thumbGlowRadius: 15,
-                  thumbColor: Colors.white,
-                  progressBarColor: Color(0xffFF3D71),
-                  baseBarColor: Color(0x4DFFFFFF),
-                  progress: Duration(minutes: 5),
-                  total: Duration(minutes: 10),
-                  timeLabelTextStyle: TextStyle(color: Color(0x99FFFFFF)),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: ProgressBar(
+                    thumbGlowRadius: 15,
+                    thumbColor: Colors.white,
+                    progressBarColor: Color(0xffFF3D71),
+                    baseBarColor: Color(0x4DFFFFFF),
+                    progress: Duration(minutes: 5),
+                    total: Duration(minutes: 10),
+                    timeLabelTextStyle: TextStyle(color: Color(0x99FFFFFF)),
+                  ),
                 )
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -132,6 +149,19 @@ class MediaControl extends StatelessWidget {
         InkWell(
           child: Image.asset('assets/images/sync.png'),
           onTap: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class BlurImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Image.asset(
+          'assets/images/Rectangle1mini.png',
         ),
       ],
     );
