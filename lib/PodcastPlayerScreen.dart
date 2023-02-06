@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:first_app/Podcast.dart';
 import 'package:first_app/main.dart';
 import 'package:flutter/material.dart';
+import 'Utils.dart';
 
 import 'HomeScreen.dart';
 
@@ -19,7 +18,7 @@ class PodcastPlayerScreen extends StatelessWidget {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, Podcast>;
     final currentPodcast = routeArgs['selectedPodcast'];
-
+    Utils.setContext(context);
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
@@ -39,7 +38,12 @@ class PodcastPlayerScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        padding: EdgeInsets.fromLTRB(
+          Utils.getResponsiveWidth(16),
+          20,
+          Utils.getResponsiveWidth(16),
+          20,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,12 +62,23 @@ class PodcastPlayerScreen extends StatelessWidget {
                         height: 250,
                         width: 250,
                       ),
+                      Positioned(
+                        right: 8,
+                        top: 8,
+                        child: InkWell(
+                          child: Container(
+                              child: Image.asset('assets/images/heart.png')),
+                        ),
+                      ),
                     ],
                     clipBehavior: Clip.none,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 30),
+                  padding: EdgeInsets.only(
+                    bottom: Utils.getResponsiveHeight(32),
+                    top: Utils.getResponsiveHeight(32),
+                  ),
                   child: Text(
                     currentPodcast.name,
                     textAlign: TextAlign.center,
@@ -75,11 +90,15 @@ class PodcastPlayerScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  padding: EdgeInsets.only(
+                    bottom: Utils.getResponsiveHeight(20),
+                  ),
                   child: MediaControl(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(
+                    bottom: Utils.getResponsiveHeight(28),
+                  ),
                   child: ProgressBar(
                     thumbGlowRadius: 15,
                     thumbColor: Colors.white,
@@ -93,7 +112,9 @@ class PodcastPlayerScreen extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(
+                bottom: Utils.getResponsiveHeight(16),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

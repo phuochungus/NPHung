@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'Podcast.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'Utils.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = '/home-screen';
   @override
   Widget build(BuildContext context) {
+    Utils.setContext(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -32,11 +34,16 @@ class HomeScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: EdgeInsets.only(
+                  left: Utils.getResponsiveWidth(16),
+                  right: Utils.getResponsiveWidth(16),
+                ),
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(
+                        top: Utils.getResponsiveHeight(24),
+                      ),
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -49,7 +56,10 @@ class HomeScreen extends StatelessWidget {
                           )),
                     ),
                     Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 20),
+                        margin: EdgeInsets.only(
+                          top: Utils.getResponsiveHeight(8),
+                          bottom: Utils.getResponsiveHeight(16),
+                        ),
                         child: Align(
                             alignment: Alignment.center,
                             child: TextField(
@@ -70,7 +80,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ))),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      padding: EdgeInsets.only(
+                        bottom: Utils.getResponsiveHeight(16),
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -81,7 +93,9 @@ class HomeScreen extends StatelessWidget {
                                     fontFamily: 'SFProDisplay',
                                     fontWeight: FontWeight.w600)),
                             Container(
-                              margin: EdgeInsets.only(left: 20),
+                              margin: EdgeInsets.only(
+                                left: Utils.getResponsiveWidth(7),
+                              ),
                               child: Image.asset('assets/images/downArrow.png'),
                             )
                           ]),
@@ -99,156 +113,46 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                  height: 130,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
+                height: Utils.getResponsiveHeight(115),
+                child: Catagories(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: Utils.getResponsiveWidth(16),
+                  top: Utils.getResponsiveHeight(32),
+                  right: Utils.getResponsiveWidth(16),
+                ),
+                child: Container(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xfff5AF19),
-                                Color(0xfff12711),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )),
-                        width: 100,
-                        margin: EdgeInsets.only(left: 20, right: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent),
-                          onPressed: () => {},
-                          child: Text(
-                            'Education',
-                            style: TextStyle(
-                                fontFamily: 'SF Pro Display',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xff623DEF),
-                                Color(0xff340FD1),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )),
-                        width: 100,
-                        margin: EdgeInsets.only(right: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent),
-                          onPressed: () => {},
-                          child: Text(
-                            'Society',
-                            style: TextStyle(
-                                fontFamily: 'SF Pro Display',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xff43EF1D),
-                                Color(0xff0D80F2),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )),
-                        width: 100,
-                        margin: EdgeInsets.only(right: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent),
-                          onPressed: () => {},
-                          child: Text(
-                            'Sports',
-                            style: TextStyle(
-                                fontFamily: 'SF Pro Display',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xffE9228D),
-                                Color(0xffF12711),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )),
-                        width: 100,
-                        margin: EdgeInsets.only(right: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent),
-                          onPressed: () => {},
-                          child: Text(
-                            'Films',
-                            style: TextStyle(
-                                fontFamily: 'SF Pro Display',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
+                      Text('Best Podcast Episodes',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'SFProDisplay',
+                              fontWeight: FontWeight.w600)),
+                      Text(
+                        'View all',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'SF Pro Text',
+                            fontWeight: FontWeight.w400),
                       ),
                     ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Best Podcast Episodes',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'SFProDisplay',
-                                  fontWeight: FontWeight.w600)),
-                          Text(
-                            'View all',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'SF Pro Text',
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+              padding: EdgeInsets.fromLTRB(
+                Utils.getResponsiveWidth(16),
+                Utils.getResponsiveHeight(16),
+                Utils.getResponsiveWidth(16),
+                Utils.getResponsiveHeight(32),
+              ),
               child: PodcastListView(),
             ),
           ),
@@ -263,16 +167,18 @@ class CurvedNavigationBarr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Color(0x40000000),
-          blurRadius: 20,
-          offset: Offset(0, -8),
-        )
-      ]),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x40000000),
+            blurRadius: 20,
+            offset: Offset(0, -8),
+          )
+        ],
+      ),
       child: CurvedNavigationBar(
         animationDuration: Duration(milliseconds: 400),
-        height: 60,
+        height: Utils.getResponsiveHeight(60),
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Color(0xffFF3D71),
         color: Color(0xff222B45),
@@ -364,67 +270,68 @@ class PodcastListView extends StatelessWidget {
         onTap: () =>
             navigateToPodcastPlayer(context, podcasts.elementAt(index)),
         child: Container(
-          margin: EdgeInsets.only(top: 3),
+          margin: EdgeInsets.only(top: Utils.getResponsiveHeight(16)),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 child: Image.asset(
                   podcasts.elementAt(index).image,
-                  height: 60,
-                  width: 60,
+                  height: Utils.getResponsiveHeight(48),
+                  width: Utils.getResponsiveWidth(48),
                   fit: BoxFit.fill,
                 ),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: Utils.getResponsiveWidth(8)),
               Expanded(
-                  // width: 200,
-                  // margin: EdgeInsets.only(left: 10),
+                child: Container(
                   child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        child: Text(
-                          podcasts.elementAt(index).date,
-                          style: TextStyle(
-                              color: Color(0xccffffff),
-                              fontFamily: 'SF Pro Text',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12),
-                        ),
-                      ),
-                      SizedBox(width: 30),
-                      Container(
-                        margin: EdgeInsets.only(left: 30),
-                        child: Text(
-                          podcasts.elementAt(index).duration,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            child: Text(
+                              podcasts.elementAt(index).date,
+                              style: TextStyle(
+                                  color: Color(0xccffffff),
+                                  fontFamily: 'SF Pro Text',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14),
+                            ),
                           ),
-                        ),
-                      )
+                          SizedBox(width: 30),
+                          Container(
+                            margin: EdgeInsets.only(left: 30),
+                            child: Text(
+                              podcasts.elementAt(index).duration,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                        podcasts.elementAt(index).name,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'SF Pro Display',
+                            fontWeight: FontWeight.w600),
+                        softWrap: false,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: 6,
-                  ),
-                  Text(
-                    podcasts.elementAt(index).name,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w600),
-                    softWrap: false,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              )),
+                ),
+              ),
               Container(
                 child: ImageIcon(
                   AssetImage(
@@ -434,6 +341,69 @@ class PodcastListView extends StatelessWidget {
                 ),
               )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Catagories extends StatelessWidget {
+  final List<String> catagories = [
+    'Education',
+    'Society',
+    'Sports',
+    'Films',
+  ];
+
+  final List<List<Color>> catagoryColors = [
+    [
+      Color(0xfff5AF19),
+      Color(0xfff12711),
+    ],
+    [
+      Color(0xff623DEF),
+      Color(0xff340FD1),
+    ],
+    [
+      Color(0xff43EF1D),
+      Color(0xff0D80F2),
+    ],
+    [
+      Color(0xffE9228D),
+      Color(0xffF12711),
+    ],
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: catagories.length,
+      itemBuilder: (context, index) => Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            gradient: LinearGradient(
+              colors: catagoryColors[index],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )),
+        width: Utils.getResponsiveWidth(95),
+        margin: EdgeInsets.only(
+          left: index == 0
+              ? Utils.getResponsiveWidth(16)
+              : Utils.getResponsiveWidth(8),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent),
+          onPressed: () => {},
+          child: Text(
+            catagories[index],
+            style: TextStyle(
+                fontFamily: 'SF Pro Display',
+                fontSize: 14,
+                fontWeight: FontWeight.w700),
           ),
         ),
       ),

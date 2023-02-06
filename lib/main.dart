@@ -8,10 +8,6 @@ void main() {
   runApp(MyApp());
 }
 
-void answerQuestion() {
-  print('Answer chosen');
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
