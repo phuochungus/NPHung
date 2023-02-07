@@ -1,22 +1,83 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'Podcast.dart';
 import 'PodcastPlayerScreen.dart';
 import 'Utils.dart';
-import 'homeScreen.dart';
 
-void navigateToPodcastPlayer(BuildContext context, Podcast selectedPodcast) {
-  Navigator.of(context).pushNamed(
-    PodcastPlayerScreen.routeName,
-    arguments: {'selectedPodcast': selectedPodcast},
-  );
+class PodcastItem extends StatelessWidget {
+  final Podcast podcast;
+  PodcastItem(this.podcast);
+
+  @override
+  Widget build(BuildContext context) {
+    Row(
+      children: [
+        Container(
+          child: Image.asset(
+            podcast.image,
+            height: Utils.getResponsiveHeight(60),
+            width: Utils.getResponsiveWidth(60),
+            fit: BoxFit.fill,
+          ),
+        ),
+        SizedBox(width: Utils.getResponsiveWidth(8)),
+        Expanded(
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      child: Text(
+                        podcast.date,
+                        style: TextStyle(
+                          color: Color(0xccffffff),
+                          fontFamily: 'SF Pro Text',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30),
+                    Container(
+                      margin: EdgeInsets.only(left: 30),
+                      child: Text(
+                        podcast.duration,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  podcast.name,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w600),
+                  softWrap: false,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class PodcastListView extends StatelessWidget {
-  List<Podcast> podcasts = <Podcast>[
+  final List<Podcast> podcasts = <Podcast>[
     Podcast("assets/images/Rectangle1.png", "DEC 30, 2020",
         "The Year in MoGraph - 2020", "3 hr 31 min"),
     Podcast('assets/images/Rectangle2.png', 'DEC 2, 2020',
@@ -29,6 +90,13 @@ class PodcastListView extends StatelessWidget {
         'Sounds Worth Saving', '46 min'),
   ];
 
+  void navigateToPodcastPlayer(BuildContext context, Podcast selectedPodcast) {
+    Navigator.of(context).pushNamed(
+      PodcastPlayerScreen.routeName,
+      arguments: {'selectedPodcast': selectedPodcast},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -38,7 +106,8 @@ class PodcastListView extends StatelessWidget {
         children: [
           Expanded(
             child: InkWell(
-              onTap: () => navigateToPodcastPlayer(context, podcasts[index]),
+              onTap: () =>
+                  navigateToPodcastPlayer(context, podcasts.elementAt(index)),
               child: Row(
                 children: [
                   Container(

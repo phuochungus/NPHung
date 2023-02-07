@@ -7,14 +7,7 @@ import 'podcastListView.dart';
 
 import 'homeScreen.dart';
 
-class PodcastPlayerScreen2 extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    PodcastPlayerScreen();
-  }
-}
-
-class PodcastPlayerScreen extends State<StatefulWidget> {
+class PodcastPlayerScreen extends StatelessWidget {
   List<Podcast> favoritePodcastEpisodes;
 
   static String routeName = '/podcast-player';

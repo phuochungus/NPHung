@@ -1,5 +1,5 @@
+import 'package:first_app/PodcastListView.dart';
 import 'package:first_app/main.dart';
-import 'package:first_app/podcastListView.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
