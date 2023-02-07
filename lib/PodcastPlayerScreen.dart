@@ -1,39 +1,68 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:first_app/Podcast.dart';
 import 'package:first_app/main.dart';
+import 'package:first_app/podcast.dart';
+import 'package:first_app/podcastListView.dart';
+import 'package:first_app/utils.dart';
 import 'package:flutter/material.dart';
-import 'Utils.dart';
-import 'podcastListView.dart';
-
 import 'homeScreen.dart';
 
-class PodcastPlayerScreen extends StatelessWidget {
-  List<Podcast> favoritePodcastEpisodes;
-
+class PodcastPlayerScreen extends StatefulWidget {
   static String routeName = '/podcast-player';
+  Podcast currentPodcast;
+  List<Podcast> favPodcasts;
+  PodcastPlayerScreen(this.currentPodcast, {this.favPodcasts});
+
+  @override
+  State<StatefulWidget> createState() {
+    return PodcastPlayerScreenSate(currentPodcast);
+  }
+}
+
+class PodcastPlayerScreenSate extends State<PodcastPlayerScreen> {
+  List<Podcast> favoritePodcastEpisodes = List.empty();
+  Podcast currentPodcast;
+  PodcastPlayerScreenSate(this.currentPodcast);
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, Podcast>;
-    final currentPodcast = routeArgs['selectedPodcast'];
     Utils.setContext(context);
+    favoritePodcastEpisodes = widget.favPodcasts;
+
     return Scaffold(
       backgroundColor: primaryColor,
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              )),
+        leading: InkWell(
+          child: Icon(
+            Icons.arrow_back_ios_new_sharp,
+            size: 15,
+          ),
+          onTap: () => Navigator.of(context).pop(),
         ),
         backgroundColor: primaryColor,
         elevation: 0,
         actions: [
-          IconButton(onPressed: () => {}, icon: Icon(Icons.settings_outlined)),
-          IconButton(onPressed: () => {}, icon: Icon(Icons.more_vert)),
+          Container(
+            margin: EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () {},
+              customBorder: CircleBorder(),
+              child: Icon(
+                Icons.settings_outlined,
+                size: 30,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 20),
+            child: InkWell(
+              onTap: () {},
+              customBorder: CircleBorder(),
+              child: Icon(
+                Icons.more_vert,
+                size: 30,
+              ),
+            ),
+          ),
         ],
       ),
       body: Padding(
@@ -64,9 +93,17 @@ class PodcastPlayerScreen extends StatelessWidget {
                       Positioned(
                         right: 8,
                         top: 8,
-                        child: InkWell(
-                          child: Container(
-                              child: Image.asset('assets/images/heart.png')),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            customBorder: CircleBorder(),
+                            onTap: () {},
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              child: Image.asset('assets/images/heart.png'),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -133,7 +170,35 @@ class PodcastPlayerScreen extends StatelessWidget {
               ),
             ),
             Flexible(
-              child: PodcastListView(),
+              child: ListView.separated(
+                itemCount: favoritePodcastEpisodes.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, index) => Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () => {
+                          setState(
+                            () =>
+                                currentPodcast = favoritePodcastEpisodes[index],
+                          )
+                        },
+                        child: PodcastItem(favoritePodcastEpisodes[index]),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: Utils.getResponsiveHeight(60),
+                        child: Icon(
+                          Icons.more_vert,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -151,23 +216,48 @@ class MediaControl extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkWell(
-          child: Image.asset('assets/images/shuffle.png'),
+          customBorder: CircleBorder(),
+          child: Container(
+            height: 30,
+            width: 30,
+            child: Image.asset('assets/images/shuffle.png'),
+          ),
           onTap: () {},
         ),
         InkWell(
-          child: Image.asset('assets/images/skip-back.png'),
+          customBorder: CircleBorder(),
+          child: Container(
+            height: 30,
+            width: 30,
+            child: Image.asset('assets/images/skip-back.png'),
+          ),
           onTap: () {},
         ),
         InkWell(
-          child: Image.asset('assets/images/play.png'),
+          customBorder: CircleBorder(),
+          child: Container(
+            height: 50,
+            width: 50,
+            child: Image.asset('assets/images/play.png'),
+          ),
           onTap: () {},
         ),
         InkWell(
-          child: Image.asset('assets/images/skip-forward.png'),
+          customBorder: CircleBorder(),
+          child: Container(
+            height: 30,
+            width: 30,
+            child: Image.asset('assets/images/skip-forward.png'),
+          ),
           onTap: () {},
         ),
         InkWell(
-          child: Image.asset('assets/images/sync.png'),
+          customBorder: CircleBorder(),
+          child: Container(
+            height: 30,
+            width: 30,
+            child: Image.asset('assets/images/sync.png'),
+          ),
           onTap: () {},
         ),
       ],

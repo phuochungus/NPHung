@@ -1,8 +1,7 @@
+import 'package:first_app/podcast.dart';
+import 'package:first_app/podcastPlayerScreen.dart';
+import 'package:first_app/utils.dart';
 import 'package:flutter/material.dart';
-
-import 'Podcast.dart';
-import 'PodcastPlayerScreen.dart';
-import 'Utils.dart';
 
 class PodcastItem extends StatelessWidget {
   final Podcast podcast;
@@ -10,7 +9,7 @@ class PodcastItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Row(
+    return Row(
       children: [
         Container(
           child: Image.asset(
@@ -76,6 +75,12 @@ class PodcastItem extends StatelessWidget {
   }
 }
 
+class msgToPodcastPlayer {
+  Podcast selectedPodcast;
+  List<Podcast> favouritePodcasts;
+  msgToPodcastPlayer(this.selectedPodcast, this.favouritePodcasts);
+}
+
 class PodcastListView extends StatelessWidget {
   final List<Podcast> podcasts = <Podcast>[
     Podcast("assets/images/Rectangle1.png", "DEC 30, 2020",
@@ -90,11 +95,13 @@ class PodcastListView extends StatelessWidget {
         'Sounds Worth Saving', '46 min'),
   ];
 
-  void navigateToPodcastPlayer(BuildContext context, Podcast selectedPodcast) {
-    Navigator.of(context).pushNamed(
-      PodcastPlayerScreen.routeName,
-      arguments: {'selectedPodcast': selectedPodcast},
-    );
+  void navigateToPodcastPlayer(BuildContext context, Podcast selectedPodcast,
+      {List<Podcast> favouritePodcasts}) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PodcastPlayerScreen(
+              selectedPodcast,
+              favPodcasts: favouritePodcasts,
+            )));
   }
 
   @override
@@ -106,71 +113,10 @@ class PodcastListView extends StatelessWidget {
         children: [
           Expanded(
             child: InkWell(
-              onTap: () =>
-                  navigateToPodcastPlayer(context, podcasts.elementAt(index)),
-              child: Row(
-                children: [
-                  Container(
-                    child: Image.asset(
-                      podcasts.elementAt(index).image,
-                      height: Utils.getResponsiveHeight(60),
-                      width: Utils.getResponsiveWidth(60),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(width: Utils.getResponsiveWidth(8)),
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                child: Text(
-                                  podcasts.elementAt(index).date,
-                                  style: TextStyle(
-                                    color: Color(0xccffffff),
-                                    fontFamily: 'SF Pro Text',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 30),
-                              Container(
-                                margin: EdgeInsets.only(left: 30),
-                                child: Text(
-                                  podcasts.elementAt(index).duration,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          Text(
-                            podcasts.elementAt(index).name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'SF Pro Display',
-                                fontWeight: FontWeight.w600),
-                            softWrap: false,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              onTap: () => navigateToPodcastPlayer(
+                  context, podcasts.elementAt(index),
+                  favouritePodcasts: podcasts),
+              child: PodcastItem(podcasts[index]),
             ),
           ),
           InkWell(

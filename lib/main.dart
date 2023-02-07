@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
-        PodcastPlayerScreen.routeName: (context) => PodcastPlayerScreen(),
       },
     );
   }

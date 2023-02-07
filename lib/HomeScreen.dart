@@ -1,12 +1,9 @@
-import 'package:first_app/PodcastListView.dart';
+import 'package:first_app/podcastListView.dart';
 import 'package:first_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'Utils.dart';
-
-import 'podcast.dart';
-import 'PodcastPlayerScreen.dart';
+import 'utils.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = '/home-screen';
@@ -155,12 +152,19 @@ class HomeScreen extends StatelessWidget {
                               color: Colors.white,
                               fontFamily: 'SFProDisplay',
                               fontWeight: FontWeight.w600)),
-                      Text(
-                        'View all',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'SF Pro Text',
-                            fontWeight: FontWeight.w400),
+                      InkWell(
+                        onTap: () {},
+                        child: Align(
+                          alignment: Alignment.center,
+                          heightFactor: 1.5,
+                          child: Text(
+                            'View all',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'SF Pro Text',
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
                       ),
                     ],
                   ),
