@@ -57,7 +57,9 @@ class PodcastListView extends StatelessWidget {
               Symbol('selectedPodcast'): podcasts[index]
             };
           } else if (onPressHandler is SetStateExecutor) {
-            onPressHandler.positionalArguments = [podcasts[index]];
+            onPressHandler.namedArguments = {
+              Symbol('selectedPodcast'): podcasts[index]
+            };
           }
           onPressHandler.execute();
           //HomeScreen.navigateToPodcastPlayer(context, podcasts[index]);

@@ -1,4 +1,5 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:first_app/presentations/widgets/podcast_list_view.dart';
 import 'package:first_app/sample_data.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,6 @@ import '../../data/DTO/podcast.dart';
 import '../../main.dart';
 import '../widgets/custom_navigation_bar.dart';
 import '../widgets/media_control.dart';
-import '../widgets/podcast_list_item.dart';
 
 class PodcastPlayerScreen extends StatefulWidget {
   static String routeName = '/podcast-player';
@@ -24,6 +24,12 @@ class PodcastPlayerScreenSate extends State<PodcastPlayerScreen> {
   List<Podcast> favoritePodcastEpisodes = List.empty();
   Podcast currentPodcast;
   PodcastPlayerScreenSate(this.currentPodcast);
+
+  void changeCurrentPodcast({required Podcast selectedPodcast}) {
+    setState(() {
+      currentPodcast = selectedPodcast;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,36 +178,8 @@ class PodcastPlayerScreenSate extends State<PodcastPlayerScreen> {
               ),
             ),
             Flexible(
-              child: ListView.separated(
-                itemCount: favoritePodcastEpisodes.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) => Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () => {
-                          setState(
-                            () =>
-                                currentPodcast = favoritePodcastEpisodes[index],
-                          )
-                        },
-                        child: PodcastItem(favoritePodcastEpisodes[index]),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: Utils.getResponsiveHeight(60),
-                        child: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                child: PodcastListView(
+                    onPressHandler: SetStateExecutor(changeCurrentPodcast))),
           ],
         ),
       ),
