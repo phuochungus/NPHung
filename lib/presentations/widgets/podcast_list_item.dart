@@ -1,7 +1,40 @@
-import 'package:first_app/podcast.dart';
-import 'package:first_app/podcastPlayerScreen.dart';
-import 'package:first_app/utils.dart';
 import 'package:flutter/material.dart';
+
+import '../../business_logics/utilities/utils.dart';
+import '../../data/DTO/podcast.dart';
+
+class Item extends StatelessWidget {
+  final Function()? onPressHandler;
+
+  final Podcast podcast;
+  Item({
+    required this.onPressHandler,
+    required this.podcast,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: InkWell(
+            onTap: onPressHandler,
+            child: PodcastItem(podcast),
+          ),
+        ),
+        InkWell(
+          onTap: () {},
+          child: Container(
+            height: Utils.getResponsiveHeight(60),
+            child: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class PodcastItem extends StatelessWidget {
   final Podcast podcast;
@@ -71,66 +104,6 @@ class PodcastItem extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class msgToPodcastPlayer {
-  Podcast selectedPodcast;
-  List<Podcast> favouritePodcasts;
-  msgToPodcastPlayer(this.selectedPodcast, this.favouritePodcasts);
-}
-
-class PodcastListView extends StatelessWidget {
-  final List<Podcast> podcasts = <Podcast>[
-    Podcast("assets/images/Rectangle1.png", "DEC 30, 2020",
-        "The Year in MoGraph - 2020", "3 hr 31 min"),
-    Podcast('assets/images/Rectangle2.png', 'DEC 2, 2020',
-        'Episode 197: The World of Lettering', '42 min'),
-    Podcast('assets/images/Rectangle3.png', 'DEC 18, 2020',
-        'How to Create YouTube Video Ads That Convert', '52 min'),
-    Podcast('assets/images/Rectangle4.png', 'DEC 15, 2020',
-        'Airbnb\'s Brian Chesky: Designing for trust', '46 min'),
-    Podcast('assets/images/Rectangle5.png', 'DEC 09, 2020',
-        'Sounds Worth Saving', '46 min'),
-  ];
-
-  void navigateToPodcastPlayer(BuildContext context, Podcast selectedPodcast,
-      {List<Podcast> favouritePodcasts}) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => PodcastPlayerScreen(
-              selectedPodcast,
-              favPodcasts: favouritePodcasts,
-            )));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: podcasts.length,
-      separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: (context, index) => Row(
-        children: [
-          Expanded(
-            child: InkWell(
-              onTap: () => navigateToPodcastPlayer(
-                  context, podcasts.elementAt(index),
-                  favouritePodcasts: podcasts),
-              child: PodcastItem(podcasts[index]),
-            ),
-          ),
-          InkWell(
-            onTap: () {},
-            child: Container(
-              height: Utils.getResponsiveHeight(60),
-              child: Icon(
-                Icons.more_vert,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -1,12 +1,38 @@
-import 'package:first_app/podcastListView.dart';
-import 'package:first_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'utils.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../business_logics/utilities/utils.dart';
+import '../../data/DTO/podcast.dart';
+import '../../main.dart';
+import '../widgets/categories_list.dart';
+import '../widgets/podcast_list_view.dart';
+import '../widgets/custom_navigation_bar.dart';
+import 'podcast_player_screen.dart';
+
+class HomeScreen extends StatefulWidget {
   static String routeName = '/home-screen';
+
+  static void navigateToPodcastPlayer({
+    required BuildContext context,
+    required Podcast selectedPodcast,
+  }) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => PodcastPlayerScreen(
+          selectedPodcast,
+        ),
+      ),
+    );
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return HomeScreenState();
+  }
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  Podcast? previousSelectedPodcast = null;
+
   @override
   Widget build(BuildContext context) {
     Utils.setContext(context);
@@ -134,7 +160,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: Utils.getResponsiveHeight(115),
-                child: Catagories(),
+                child: CatagoriesList(),
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -180,152 +206,14 @@ class HomeScreen extends StatelessWidget {
                 Utils.getResponsiveWidth(16),
                 Utils.getResponsiveHeight(32),
               ),
-              child: PodcastListView(),
+              child: PodcastListView(
+                  onPressHandler: NavigationFunctionExecutor(
+                      HomeScreen.navigateToPodcastPlayer)),
             ),
           ),
         ],
       ),
-      bottomNavigationBar: CurvedNavigationBarr(),
-    );
-  }
-}
-
-class CurvedNavigationBarr extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x40000000),
-            blurRadius: 20,
-            offset: Offset(0, -8),
-          )
-        ],
-      ),
-      child: CurvedNavigationBar(
-        animationDuration: Duration(milliseconds: 400),
-        height: Utils.getResponsiveHeight(60),
-        backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Color(0xffFF3D71),
-        color: Color(0xff222B45),
-        items: [
-          CurvedNavigationBarItem(
-            child: Image.asset(
-              'assets/images/home.png',
-              fit: BoxFit.fill,
-              height: 25,
-              width: 25,
-            ),
-            label: 'Home',
-            labelStyle: TextStyle(color: Colors.white),
-          ),
-          CurvedNavigationBarItem(
-            child: Image.asset(
-              'assets/images/trend.png',
-              fit: BoxFit.fill,
-              height: 25,
-              width: 25,
-            ),
-            label: 'Trend',
-            labelStyle: TextStyle(color: Colors.white),
-          ),
-          CurvedNavigationBarItem(
-            child: Image.asset(
-              'assets/images/explore.png',
-              fit: BoxFit.fill,
-              height: 25,
-              width: 25,
-            ),
-            label: 'Explore',
-            labelStyle: TextStyle(color: Colors.white),
-          ),
-          CurvedNavigationBarItem(
-            child: Image.asset(
-              'assets/images/chat.png',
-              fit: BoxFit.fill,
-              height: 25,
-              width: 25,
-            ),
-            label: 'Chat',
-            labelStyle: TextStyle(color: Colors.white),
-          ),
-          CurvedNavigationBarItem(
-            child: Image.asset(
-              'assets/images/profile.png',
-              fit: BoxFit.fill,
-              height: 25,
-              width: 25,
-            ),
-            label: 'Profile',
-            labelStyle: TextStyle(color: Colors.white),
-          ),
-        ],
-        onTap: (index) => {},
-      ),
-    );
-  }
-}
-
-class Catagories extends StatelessWidget {
-  final List<String> catagories = [
-    'Education',
-    'Society',
-    'Sports',
-    'Films',
-  ];
-
-  final List<List<Color>> catagoryColors = [
-    [
-      Color(0xfff5AF19),
-      Color(0xfff12711),
-    ],
-    [
-      Color(0xff623DEF),
-      Color(0xff340FD1),
-    ],
-    [
-      Color(0xff43EF1D),
-      Color(0xff0D80F2),
-    ],
-    [
-      Color(0xffE9228D),
-      Color(0xffF12711),
-    ],
-  ];
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: catagories.length,
-      itemBuilder: (context, index) => Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            gradient: LinearGradient(
-              colors: catagoryColors[index],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            )),
-        width: Utils.getResponsiveWidth(95),
-        margin: EdgeInsets.only(
-          left: index == 0
-              ? Utils.getResponsiveWidth(16)
-              : Utils.getResponsiveWidth(8),
-        ),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent),
-          onPressed: () => {},
-          child: Text(
-            catagories[index],
-            style: TextStyle(
-                fontFamily: 'SF Pro Display',
-                fontSize: 14,
-                fontWeight: FontWeight.w700),
-          ),
-        ),
-      ),
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }

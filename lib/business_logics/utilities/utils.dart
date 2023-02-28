@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Utils {
-  static BuildContext _context;
-  static double _actualWidth = MediaQuery.of(_context).size.width;
-  static double _actualHeight = MediaQuery.of(_context).size.height;
+  static BuildContext? _context;
+  static double _actualWidth = MediaQuery.of(_context!).size.width;
+  static double _actualHeight = MediaQuery.of(_context!).size.height;
   static final double _designedWidth = 375;
   static final double _designedHeight = 812;
 

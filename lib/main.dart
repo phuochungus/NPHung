@@ -1,6 +1,6 @@
-import 'package:first_app/homeScreen.dart';
-import 'package:first_app/podcastPlayerScreen.dart';
 import 'package:flutter/material.dart';
+
+import 'presentations/screens/home_screen.dart';
 
 const primaryColor = Color(0xff192038);
 

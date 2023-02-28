@@ -1,16 +1,18 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:first_app/main.dart';
-import 'package:first_app/podcast.dart';
-import 'package:first_app/podcastListView.dart';
-import 'package:first_app/utils.dart';
+import 'package:first_app/sample_data.dart';
 import 'package:flutter/material.dart';
-import 'homeScreen.dart';
+
+import '../../business_logics/utilities/utils.dart';
+import '../../data/DTO/podcast.dart';
+import '../../main.dart';
+import '../widgets/custom_navigation_bar.dart';
+import '../widgets/media_control.dart';
+import '../widgets/podcast_list_item.dart';
 
 class PodcastPlayerScreen extends StatefulWidget {
   static String routeName = '/podcast-player';
-  Podcast currentPodcast;
-  List<Podcast> favPodcasts;
-  PodcastPlayerScreen(this.currentPodcast, {this.favPodcasts});
+  final Podcast currentPodcast;
+  PodcastPlayerScreen(this.currentPodcast);
 
   @override
   State<StatefulWidget> createState() {
@@ -26,7 +28,7 @@ class PodcastPlayerScreenSate extends State<PodcastPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     Utils.setContext(context);
-    favoritePodcastEpisodes = widget.favPodcasts;
+    favoritePodcastEpisodes = podcasts;
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -203,77 +205,7 @@ class PodcastPlayerScreenSate extends State<PodcastPlayerScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: CurvedNavigationBarr(),
-    );
-  }
-}
-
-class MediaControl extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        InkWell(
-          customBorder: CircleBorder(),
-          child: Container(
-            height: 30,
-            width: 30,
-            child: Image.asset('assets/images/shuffle.png'),
-          ),
-          onTap: () {},
-        ),
-        InkWell(
-          customBorder: CircleBorder(),
-          child: Container(
-            height: 30,
-            width: 30,
-            child: Image.asset('assets/images/skip-back.png'),
-          ),
-          onTap: () {},
-        ),
-        InkWell(
-          customBorder: CircleBorder(),
-          child: Container(
-            height: 50,
-            width: 50,
-            child: Image.asset('assets/images/play.png'),
-          ),
-          onTap: () {},
-        ),
-        InkWell(
-          customBorder: CircleBorder(),
-          child: Container(
-            height: 30,
-            width: 30,
-            child: Image.asset('assets/images/skip-forward.png'),
-          ),
-          onTap: () {},
-        ),
-        InkWell(
-          customBorder: CircleBorder(),
-          child: Container(
-            height: 30,
-            width: 30,
-            child: Image.asset('assets/images/sync.png'),
-          ),
-          onTap: () {},
-        ),
-      ],
-    );
-  }
-}
-
-class BlurImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          'assets/images/Rectangle1mini.png',
-        ),
-      ],
+      bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }
