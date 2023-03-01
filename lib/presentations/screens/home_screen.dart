@@ -11,10 +11,8 @@ import 'podcast_player_screen.dart';
 class HomeScreen extends StatefulWidget {
   static String routeName = '/home-screen';
 
-  static void navigateToPodcastPlayer({
-    required BuildContext context,
-    required Podcast selectedPodcast,
-  }) {
+  static void navigateToPodcastPlayer(Podcast selectedPodcast,
+      {required BuildContext context}) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => PodcastPlayerScreen(

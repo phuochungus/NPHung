@@ -25,7 +25,7 @@ class PodcastPlayerScreenSate extends State<PodcastPlayerScreen> {
   Podcast currentPodcast;
   PodcastPlayerScreenSate(this.currentPodcast);
 
-  void changeCurrentPodcast({required Podcast selectedPodcast}) {
+  void changeCurrentPodcast(Podcast selectedPodcast) {
     setState(() {
       currentPodcast = selectedPodcast;
     });

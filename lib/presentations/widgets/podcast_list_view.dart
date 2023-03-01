@@ -51,18 +51,11 @@ class PodcastListView extends StatelessWidget {
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) => Item(
         onPressHandler: () {
+          onPressHandler.positionalArguments = [podcasts[index]];
           if (onPressHandler is NavigationFunctionExecutor) {
-            onPressHandler.namedArguments = {
-              Symbol('context'): context,
-              Symbol('selectedPodcast'): podcasts[index]
-            };
-          } else if (onPressHandler is SetStateExecutor) {
-            onPressHandler.namedArguments = {
-              Symbol('selectedPodcast'): podcasts[index]
-            };
+            onPressHandler.namedArguments = {Symbol('context'): context};
           }
           onPressHandler.execute();
-          //HomeScreen.navigateToPodcastPlayer(context, podcasts[index]);
         },
         podcast: podcasts[index],
       ),
