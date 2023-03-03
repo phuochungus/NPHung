@@ -59,9 +59,10 @@ class PodcastItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
+                      width: 150,
                       child: Text(
                         podcast.date,
                         style: TextStyle(
@@ -72,9 +73,8 @@ class PodcastItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 30),
+                    // SizedBox(width: 30),
                     Container(
-                      margin: EdgeInsets.only(left: 30),
                       child: Text(
                         podcast.duration,
                         style: TextStyle(
